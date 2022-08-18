@@ -1,0 +1,31 @@
+<h1>Show Series</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.series_show_path(@socket, :show, @series)}>
+    <.live_component
+      module={ComicBookManagerWeb.SeriesLive.FormComponent}
+      id={@series.id}
+      title={@page_title}
+      action={@live_action}
+      series={@series}
+      return_to={Routes.series_show_path(@socket, :show, @series)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @series.name %>
+  </li>
+
+  <li>
+    <strong>Published at:</strong>
+    <%= @series.published_at %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.series_show_path(@socket, :edit, @series), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.series_index_path(@socket, :index) %></span>

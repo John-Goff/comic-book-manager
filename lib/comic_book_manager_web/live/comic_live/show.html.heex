@@ -1,0 +1,36 @@
+<h1>Show Comic</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.comic_show_path(@socket, :show, @comic)}>
+    <.live_component
+      module={ComicBookManagerWeb.ComicLive.FormComponent}
+      id={@comic.id}
+      title={@page_title}
+      action={@live_action}
+      comic={@comic}
+      return_to={Routes.comic_show_path(@socket, :show, @comic)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Published at:</strong>
+    <%= @comic.published_at %>
+  </li>
+
+  <li>
+    <strong>Read percentage:</strong>
+    <%= @comic.read_percentage %>
+  </li>
+
+  <li>
+    <strong>Issue number:</strong>
+    <%= @comic.issue_number %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.comic_show_path(@socket, :edit, @comic), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.comic_index_path(@socket, :index) %></span>

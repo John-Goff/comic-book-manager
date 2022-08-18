@@ -1,0 +1,41 @@
+<h1>Listing Publishers</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.publisher_index_path(@socket, :index)}>
+    <.live_component
+      module={ComicBookManagerWeb.PublisherLive.FormComponent}
+      id={@publisher.id || :new}
+      title={@page_title}
+      action={@live_action}
+      publisher={@publisher}
+      return_to={Routes.publisher_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Created at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="publishers">
+    <%= for publisher <- @publishers do %>
+      <tr id={"publisher-#{publisher.id}"}>
+        <td><%= publisher.name %></td>
+        <td><%= publisher.created_at %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.publisher_show_path(@socket, :show, publisher) %></span>
+          <span><%= live_patch "Edit", to: Routes.publisher_index_path(@socket, :edit, publisher) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: publisher.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Publisher", to: Routes.publisher_index_path(@socket, :new) %></span>

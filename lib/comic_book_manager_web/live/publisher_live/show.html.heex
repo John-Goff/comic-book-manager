@@ -1,0 +1,31 @@
+<h1>Show Publisher</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.publisher_show_path(@socket, :show, @publisher)}>
+    <.live_component
+      module={ComicBookManagerWeb.PublisherLive.FormComponent}
+      id={@publisher.id}
+      title={@page_title}
+      action={@live_action}
+      publisher={@publisher}
+      return_to={Routes.publisher_show_path(@socket, :show, @publisher)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @publisher.name %>
+  </li>
+
+  <li>
+    <strong>Created at:</strong>
+    <%= @publisher.created_at %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.publisher_show_path(@socket, :edit, @publisher), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.publisher_index_path(@socket, :index) %></span>

@@ -1,0 +1,31 @@
+<h1>Show Universe</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.universe_show_path(@socket, :show, @universe)}>
+    <.live_component
+      module={ComicBookManagerWeb.UniverseLive.FormComponent}
+      id={@universe.id}
+      title={@page_title}
+      action={@live_action}
+      universe={@universe}
+      return_to={Routes.universe_show_path(@socket, :show, @universe)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @universe.name %>
+  </li>
+
+  <li>
+    <strong>First published at:</strong>
+    <%= @universe.first_published_at %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.universe_show_path(@socket, :edit, @universe), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.universe_index_path(@socket, :index) %></span>

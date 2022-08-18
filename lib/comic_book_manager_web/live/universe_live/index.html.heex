@@ -1,0 +1,41 @@
+<h1>Listing Universes</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.universe_index_path(@socket, :index)}>
+    <.live_component
+      module={ComicBookManagerWeb.UniverseLive.FormComponent}
+      id={@universe.id || :new}
+      title={@page_title}
+      action={@live_action}
+      universe={@universe}
+      return_to={Routes.universe_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>First published at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="universes">
+    <%= for universe <- @universes do %>
+      <tr id={"universe-#{universe.id}"}>
+        <td><%= universe.name %></td>
+        <td><%= universe.first_published_at %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.universe_show_path(@socket, :show, universe) %></span>
+          <span><%= live_patch "Edit", to: Routes.universe_index_path(@socket, :edit, universe) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: universe.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Universe", to: Routes.universe_index_path(@socket, :new) %></span>

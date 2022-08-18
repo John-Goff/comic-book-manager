@@ -1,0 +1,28 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="comic-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :published_at %>
+    <%= date_select f, :published_at %>
+    <%= error_tag f, :published_at %>
+  
+    <%= label f, :read_percentage %>
+    <%= number_input f, :read_percentage %>
+    <%= error_tag f, :read_percentage %>
+  
+    <%= label f, :issue_number %>
+    <%= number_input f, :issue_number %>
+    <%= error_tag f, :issue_number %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

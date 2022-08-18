@@ -17,6 +17,33 @@ defmodule ComicBookManagerWeb.Router do
   scope "/", ComicBookManagerWeb do
     pipe_through :browser
 
+    live "/", ComicLive.Index, :index
+    live "/new", ComicLive.Index, :new
+    live "/:id/edit", ComicLive.Index, :edit
+
+    live "/:id", ComicLive.Show, :show
+    live "/:id/show/edit", ComicLive.Show, :edit
+
+    live "/series", SeriesLive.Index, :index
+    live "/series/new", SeriesLive.Index, :new
+    live "/series/:id/edit", SeriesLive.Index, :edit
+
+    live "/series/:id", SeriesLive.Show, :show
+    live "/series/:id/show/edit", SeriesLive.Show, :edit
+
+    live "/publishers", PublisherLive.Index, :index
+    live "/publishers/new", PublisherLive.Index, :new
+    live "/publishers/:id/edit", PublisherLive.Index, :edit
+
+    live "/publishers/:id", PublisherLive.Show, :show
+    live "/publishers/:id/show/edit", PublisherLive.Show, :edit
+
+    live "/universes", UniverseLive.Index, :index
+    live "/universes/new", UniverseLive.Index, :new
+    live "/universes/:id/edit", UniverseLive.Index, :edit
+
+    live "/universes/:id", UniverseLive.Show, :show
+    live "/universes/:id/show/edit", UniverseLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
