@@ -17,7 +17,6 @@ defmodule ComicBookManagerWeb.Router do
   scope "/", ComicBookManagerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
